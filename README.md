@@ -1,105 +1,345 @@
-1.  What is Beacon?
-2.  Features
-3.  System Requirements
+#  Beacon
 
--------------------------------------------------
+### Simplifying Engineering Overhead
 
-Beacon is an offline personal engineering secretary application designed 
-for smooth daily functioning at office. It helps engineers manage projects, track 
-requirements, organize files, and monitor team status - all without 
-requiring an internet connection.
+**Beacon** is an offline engineering productivity workspace built with **Python, PySide6, and SQLite**.
 
-Key capabilities:
-- Project management with visual dashboards
-- Requirements tracking with status workflow
-- File organization by type (auto-categorization)
-- Excel-based team status tracking (Head/Manager workflow)
-- Personal notes with rich text editing
-- Daily task planning with reminders
-- Application launcher for installed tools
-- Screenshot management with tagging
-- Built-in relaxation game ("Catch the Colour")
+It brings project management, requirements, files, planning, notes, meetings, people, links, and everyday engineering tools into a single desktop application.
 
+---
 
-2.  FEATURES
+## ✨ Features
 
-🏗️  PROJECT MANAGEMENT
-   - Create, organize, and track engineering projects
-   - Visual project tiles with unique 3-character codes
-   - Drag-and-drop reordering
-   - Pause/Resume/Close projects
-   - Auto-generated folder structure (Requirements/, Design/, Tests/, etc.)
+### 📁 Project Management
 
-📋  REQUIREMENTS TRACKING
-   - Per-project requirements with ID numbering (REQ-001, REQ-002...)
-   - Status workflow: Draft → Reviewed → Approved → Implemented → Verified
-   - Types: Functional, Performance, Safety, Interface, Constraint
-   - Verification methods: Test, Analysis, Inspection, Demonstration
-   - Export to CSV
+* Create and manage engineering projects
+* Project codes and owners
+* Start/end dates
+* Project status
+* Project hold/close management
+* Project-specific file storage
 
-📁  FILE MANAGEMENT
-   - Auto-categorization by file type
-   - Supported categories: PDF, Word, Excel, PowerPoint, Images, 
-     Simulink, MATLAB, Code, Text, Archives, Miscellaneous
-   - Drag-and-drop file import
-   - Search by name, year, month, or category
-   - Import from Downloads, Desktop, Documents, or OneDrive
-   - Watch folders for new downloads
+### 📋 Requirements
 
-📊  STATUS TRACKING (Excel Integration)
-   - Head Excel workbook: Project-level status with manager weights
-   - Manager Excel workbook: Team status per project
-   - Auto-calculated completion percentages
-   - Direct reading from Excel (no need to open Excel)
+* Functional
+* Performance
+* Safety
+* Interface
+* Constraint
 
-✍️  RICH NOTES
-   - HTML-based editor with formatting (bold, color, lists)
-   - Purpose/Place/Date template
-   - Export to PDF or Word (.doc)
-   - Grouped by date
+Requirement lifecycle:
 
-✅  DAILY PLAN
-   - Task lists with checkboxes
-   - Reminders with alarm (HH:MM)
-   - Auto-clearing completed tasks
+`Draft → Reviewed → Approved → Implemented → Verified`
 
-🔗  LINKS
-   - URL bookmark manager
-   - Editable purpose and link fields
-   - Click to open in browser
+Verification methods:
 
-🚀  APP LAUNCHER
-   - Quick launch installed applications
-   - Auto-detects installed software
-   - Add custom apps by browsing
+`Test • Analysis • Inspection • Demonstration`
 
-📸  SCREENSHOTS
-   - Paste from clipboard (PrtSc or Win+Shift+S)
-   - Tag with searchable keywords
-   - Thumbnail preview
-   - Image library management
+### 👥 People & Roles
 
-🎮  RELAX GAME
-   - "Catch the Colour" ping-pong style game
-   - 7 difficulty levels
-   - 15-minute daily limit
-   - Certificate for levels 6 & 7
+Built-in roles:
 
-🎨  THEMES
-   - 4 professional themes: Slate, Graphite, Navy, Forest
-   - Instant switching without restart
+* Head
+* Program Manager
+* Manager
+* System Engineer
+* Developer
+* Tester
 
-👥  ROLE-BASED ACCESS
-   - Head, Program Manager, Manager, System Engineer, Developer, Tester
-   - Different capabilities per role
+Role-based capabilities control access to project features.
 
+### 📅 Planning & Meetings
 
-3.  SYSTEM REQUIREMENTS
+* Daily task planning
+* Task reminders
+* Meeting information
+* Meeting links
+* Meeting location
+* Organizer information
+* Minutes of Meeting (MoM)
 
+### 📝 Notes
 
-Minimal Requirements:
-- Windows 10 or Windows 11 (64-bit)
-- 4 GB RAM (8 GB recommended)
-- 200 MB free disk space
-- Python 3.8 or higher (for source code version)
-- OR: No Python required (for EXE version)
+Beacon supports both:
+
+* Daily notes
+* Rich engineering notes
+
+Notes can contain purpose, place, content, creation time, and update time.
+
+### 📂 Engineering Files
+
+Beacon organizes common engineering file types, including:
+
+```text
+MATLAB / Simulink
+C / C++
+Python
+Excel / CSV
+Word
+PowerPoint
+PDF
+Images
+Text / Logs
+Archives
+```
+
+### 🔗 Engineering Links
+
+Keep frequently used URLs in one place:
+
+* Documentation
+* Project portals
+* Git repositories
+* Engineering tools
+* Reference material
+
+### 🚀 Application Launcher
+
+Quick access to installed applications such as:
+
+* VS Code
+* Outlook
+* Teams
+* Excel
+* Word
+* Notepad
+* Calculator
+* File Explorer
+
+### 🕘 Recent Files
+
+Beacon maintains a bounded list of recently opened files for quick access.
+
+### 📥 Download Monitoring
+
+Beacon can monitor commonly used folders such as:
+
+* Downloads
+* Desktop
+* Documents
+* OneDrive
+
+Temporary download files are detected separately.
+
+---
+
+## 🎨 UI
+
+Beacon uses a modern PySide6/Qt interface with multiple themes:
+
+* Slate
+* Graphite
+* Navy
+* Forest
+
+The Home page provides a centralized engineering workspace with project tiles, planning, meetings, recent files, and quick-access tools.
+
+---
+
+## 🏗️ Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │       Beacon        │
+                    │    Desktop App      │
+                    └──────────┬──────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+              ▼                ▼                ▼
+        ┌───────────┐    ┌────────────┐   ┌─────────────┐
+        │  PySide6  │    │   SQLite   │   │ File System │
+        │    /Qt    │    │  Database  │   │   /Projects │
+        └───────────┘    └────────────┘   └─────────────┘
+                               │
+                               ▼
+                       Local Application
+                            Data
+```
+
+---
+
+## 💾 Data Storage
+
+Beacon intentionally separates the live database from project files.
+
+### Application Database
+
+```text
+%LOCALAPPDATA%\Beacon\beacon.db
+```
+
+The SQLite database is kept locally rather than inside a synchronized OneDrive directory.
+
+### Project Files
+
+When OneDrive is available:
+
+```text
+OneDrive\Beacon\Projects
+```
+
+Otherwise:
+
+```text
+Documents\Beacon\Projects
+```
+
+This separation helps avoid SQLite synchronization problems.
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology  | Purpose           |
+| ----------- | ----------------- |
+| Python      | Application logic |
+| PySide6     | Desktop GUI       |
+| Qt          | UI framework      |
+| SQLite      | Local database    |
+| PyInstaller | Windows packaging |
+
+---
+
+## 🚀 Run from Source
+
+Clone the repository:
+
+```bash
+git clone https://github.com/<your-username>/Beacon.git
+cd Beacon
+```
+
+Run:
+
+```bash
+python beacon_25.py
+```
+
+If you have multiple Python installations:
+
+```powershell
+& "C:\Path\To\python.exe" beacon_25.py
+```
+
+---
+
+## 📦 Build Windows Application
+
+Beacon uses a PyInstaller specification file.
+
+```powershell
+python -m PyInstaller --noconfirm --clean beacon.spec
+```
+
+The packaged application will be generated according to the configuration in `beacon.spec`.
+
+For a specific Python installation:
+
+```powershell
+& "C:\Path\To\python.exe" -m PyInstaller --noconfirm --clean beacon.spec
+```
+
+---
+
+## 🗄️ Database Migration
+
+Beacon maintains compatibility with existing databases through schema migration.
+
+For example, when new columns are introduced, the application checks the existing SQLite schema and adds missing columns rather than requiring the user to delete the database.
+
+This allows application upgrades while preserving existing project data.
+
+---
+
+## 📸 Screenshots
+
+Add screenshots here:
+
+```markdown
+![Beacon Home](screenshots/home.png)
+
+![Project Management](screenshots/projects.png)
+
+![Requirements](screenshots/requirements.png)
+```
+
+Recommended repository structure:
+
+```text
+Beacon/
+│
+├── beacon_25.py
+├── beacon.spec
+├── README.md
+│
+├── screenshots/
+│   ├── home.png
+│   ├── projects.png
+│   └── requirements.png
+│
+└── ...
+```
+
+---
+
+## 🗺️ Roadmap
+
+* [ ] Database version management
+* [ ] Automated database backup/restore
+* [ ] Advanced project dashboards
+* [ ] Requirement traceability
+* [ ] Enhanced calendar integration
+* [ ] Global project search
+* [ ] Project health dashboard
+* [ ] Engineering reports
+* [ ] Import/export tools
+* [ ] Additional engineering tool integrations
+
+---
+
+## 🤝 Contributing
+
+Contributions, ideas, and improvements are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+
+```bash
+git checkout -b feature/my-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add my feature"
+```
+
+4. Push the branch
+
+```bash
+git push origin feature/my-feature
+```
+
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Add your preferred license here.
+
+Example:
+
+```text
+Copyright © 2026 Beacon
+
+All rights reserved.
+```
+
+---
+
+## 🔦 Beacon
+
+> **One workspace. Less overhead. Better engineering.**
