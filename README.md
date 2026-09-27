@@ -188,70 +188,8 @@ Documents\Beacon\Projects
 
 This separation helps avoid SQLite synchronization problems.
 
----
 
-## 🛠️ Technology Stack
 
-| Technology  | Purpose           |
-| ----------- | ----------------- |
-| Python      | Application logic |
-| PySide6     | Desktop GUI       |
-| Qt          | UI framework      |
-| SQLite      | Local database    |
-| PyInstaller | Windows packaging |
-
----
-
-## 🚀 Run from Source
-
-Clone the repository:
-
-```bash
-git clone https://github.com/<your-username>/Beacon.git
-cd Beacon
-```
-
-Run:
-
-```bash
-python beacon_25.py
-```
-
-If you have multiple Python installations:
-
-```powershell
-& "C:\Path\To\python.exe" beacon_25.py
-```
-
----
-
-## 📦 Build Windows Application
-
-Beacon uses a PyInstaller specification file.
-
-```powershell
-python -m PyInstaller --noconfirm --clean beacon.spec
-```
-
-The packaged application will be generated according to the configuration in `beacon.spec`.
-
-For a specific Python installation:
-
-```powershell
-& "C:\Path\To\python.exe" -m PyInstaller --noconfirm --clean beacon.spec
-```
-
----
-
-## 🗄️ Database Migration
-
-Beacon maintains compatibility with existing databases through schema migration.
-
-For example, when new columns are introduced, the application checks the existing SQLite schema and adds missing columns rather than requiring the user to delete the database.
-
-This allows application upgrades while preserving existing project data.
-
----
 
 ## 📸 Screenshots
 
@@ -282,22 +220,6 @@ Beacon/
 └── ...
 ```
 
----
-
-## 🗺️ Roadmap
-
-* [ ] Database version management
-* [ ] Automated database backup/restore
-* [ ] Advanced project dashboards
-* [ ] Requirement traceability
-* [ ] Enhanced calendar integration
-* [ ] Global project search
-* [ ] Project health dashboard
-* [ ] Engineering reports
-* [ ] Import/export tools
-* [ ] Additional engineering tool integrations
-
----
 
 ## 🤝 Contributing
 
@@ -326,19 +248,6 @@ git push origin feature/my-feature
 
 ---
 
-## 📄 License
-
-Add your preferred license here.
-
-Example:
-
-```text
-Copyright © 2026 Beacon
-
-All rights reserved.
-```
-
----
 
 ## 🔦 Beacon
 
