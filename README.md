@@ -249,6 +249,6 @@ git push origin feature/my-feature
 ---
 
 
-## 🔦 Beacon
+##  Beacon
 
 > **One workspace. Less overhead. Better engineering.**
